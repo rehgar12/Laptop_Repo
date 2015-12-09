@@ -96,6 +96,8 @@ public class NW_alignment
 		//initialize and fill in using NW and relevant scoring matrix
 		int colInit = -1;
 		int rowInit = 0;
+		
+		long startNW = System.currentTimeMillis();
 		for( int y=0; y<seqMatrix.length; y++ )			//row index (y-axis)
 		{
 			for( int x=0; x<seqMatrix[0].length; x++ )	//col index (x-axis)
@@ -103,14 +105,16 @@ public class NW_alignment
 				if( y == 0 )		//first row initializer
 				{
 					seqMatrix[y][x] = rowInit;
-					rowInit--;
+//					rowInit--;
+					rowInit = rowInit - 8;
 				}
 				else
 				{
 					if( x == 0)		//first col initializer
 					{
 						seqMatrix[y][x] = colInit;
-						colInit--;
+//						colInit--;
+						colInit = colInit - 8;
 					}
 					else		//fill in most positive score
 					{
@@ -140,7 +144,10 @@ public class NW_alignment
 				}
 			}
 		}
+		long endNW = System.currentTimeMillis();
+		System.out.println("NW part took " + (endNW - startNW) + " milliseconds.");
 		
+		long startTB = System.currentTimeMillis();
 		//visualize alignment of seqs
 		String seq1Align = "";
 		String seq2Align = "";
@@ -178,6 +185,10 @@ public class NW_alignment
 				}
 			}
 		}
+		long endTB = System.currentTimeMillis();
+		System.out.println("TB took " + (endTB - startTB) + " milliseconds.");
+		
+		
 		String seq1Alignment = new StringBuffer(seq1Align).reverse().toString();
 		String seq2Alignment = new StringBuffer(seq2Align).reverse().toString();
 		System.out.println(seq1Alignment);
@@ -195,6 +206,8 @@ public class NW_alignment
 		String seq1 = seqHash.get("seq1");
 		String seq2 = seqHash.get("seq2");	
 		System.out.println("Aligning using single-threaded Needleman-Wunsch algorithm...\n");
+		//the alignment
+//		long startTime = System.currentTimeMillis();
 		NW_algorithm(scoreMat, seq1, seq2);
 		long endTime = System.currentTimeMillis();
 		System.out.println("\nThis alignment took " + (endTime - startTime) + " milliseconds.");

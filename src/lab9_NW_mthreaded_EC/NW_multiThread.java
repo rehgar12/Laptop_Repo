@@ -112,7 +112,8 @@ public class NW_multiThread
 				if( y == 0 )		//first row initializer
 				{
 					seqMatrix[yThread][xThread] = rowInit;
-					rowInit--;
+//					rowInit--;
+					rowInit = rowInit - 8;
 //					System.out.println(seqMatrix[y][x]);
 				}
 				else
@@ -120,7 +121,8 @@ public class NW_multiThread
 					if( x == 0)		//first col initializer
 					{
 						seqMatrix[yThread][xThread] = colInit;
-						colInit--;
+//						colInit--;
+						colInit = colInit - 8;
 //						System.out.println(seqMatrix[y][x]);
 					}
 					else	//spawn a thread to calc scores for each row (after first row, y=0, and first col, x=0, have been initialized)	
